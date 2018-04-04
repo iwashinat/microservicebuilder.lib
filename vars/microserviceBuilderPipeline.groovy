@@ -195,6 +195,7 @@ def call(body) {
           }
           
           container ('helm') {
+            sh "/helm update"
             sh "/helm init --client-only --skip-refresh"
             def deployCommand = "/helm install --tls ${realChartFolder} --wait --set test=true --values pipeline.yaml --namespace ${testNamespace} --name ${tempHelmRelease}"
             if (fileExists("chart/overrides.yaml")) {
