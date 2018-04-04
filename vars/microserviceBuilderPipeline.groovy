@@ -241,6 +241,7 @@ def call(body) {
 def deployProject (String chartFolder, String registry, String image, String imageTag, String namespace, String manifestFolder) {
   if (chartFolder != null && fileExists(chartFolder)) {
     container ('helm') {
+      sh "/helm update"
       sh "/helm init --client-only --skip-refresh"
       def deployCommand = "/helm upgrade --tls --install --wait --values pipeline.yaml"
       if (fileExists("chart/overrides.yaml")) {
